@@ -1,0 +1,68 @@
+import time
+
+from selenium import webdriver
+from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.service import Service
+
+driver=webdriver.Chrome(service=Service(executable_path="D:\chromedriver\chromedriver_win32/chromedriver.exe"))
+driver.get("https://automationtesting.in")
+driver.maximize_window()
+driver.find_element(By.PARTIAL_LINK_TEXT,"Demo Site").click()
+time.sleep(5)
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[1]/div[1]/input').send_keys("Mayuri")
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[1]/div[2]/input').send_keys("Khade")
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[2]/div/textarea').send_keys("33,Pawansut Nagar,Ramna Maroti Road,Nagpur")
+driver.find_element(By.XPATH,'//*[@id="eid"]/input').send_keys("mayurikhade1@gmail.com")
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[4]/div/input').send_keys(9156460795)
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[5]/div/label[2]/input').click()
+driver.find_element(By.ID,'checkbox2').click()
+
+driver.find_element(By.ID,"msdd").click()
+time.sleep(12)
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[7]/div/multi-select/div[2]/ul/li[2]/a').click()
+driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[7]/div/multi-select/div[2]/ul/li[8]/a').click()
+# driver.find_element(By.XPATH,'//*[@id="basicBootstrapForm"]/div[5]/label').click()
+
+select=Select(driver.find_element(By.XPATH,'//select[@id="Skills"]'))
+select.select_by_visible_text('C++')
+select.select_by_visible_text('Android')
+time.sleep(5)
+
+selyear=Select(driver.find_element(By.XPATH,'//select[@id="yearbox"]'))
+selyear.select_by_index(81)
+selmon=Select(driver.find_element(By.XPATH,'//select[@placeholder="Month"]'))
+selmon.select_by_index(5)
+seldate=Select(driver.find_element(By.XPATH,'//select[@id="daybox"]'))
+seldate.select_by_index(18)
+driver.find_element(By.ID,'firstpassword').send_keys("mkhade")
+driver.find_element(By.XPATH,'//input[@id="secondpassword"]').send_keys("mkhade")
+driver.find_element(By.XPATH,'//button[@id="submitbtn"]').click()
+driver.find_element(By.PARTIAL_LINK_TEXT,'SwitchTo').click()
+driver.find_element(By.PARTIAL_LINK_TEXT,'Alert').click()
+time.sleep(5)
+driver.find_element(By.XPATH,'//button[@onclick="alertbox()"]').click()
+alert=Alert(driver).accept()
+driver.find_element(By.XPATH,'//a[@href="#CancelTab"]').click()
+driver.find_element(By.XPATH,'//button[@onclick="confirmbox()"]').click()
+alert=Alert(driver).accept()
+driver.find_element(By.XPATH,'//a[@href="#Textbox"]').click()
+driver.find_element(By.XPATH,'//button[@onclick="promptbox()"]').click()
+alert=Alert(driver).accept()
+driver.find_element(By.PARTIAL_LINK_TEXT,'SwitchTo').click()
+driver.find_element(By.PARTIAL_LINK_TEXT,'Frames').click()
+driver.find_element(By.XPATH,'//a[@href="#Multiple"]').click()
+driver.find_element(By.XPATH,'//a[@href="#Single"]').click()
+time.sleep(5)
+driver.switch_to.frame(driver.find_element(By.XPATH,'//iframe[@id="singleframe"]'))
+driver.find_element(By.XPATH,'/html/body/section/div/div/div/input').send_keys("mayuri")
+driver.switch_to.parent_frame()
+time.sleep(8)
+driver.find_element(By.XPATH,'//a[@href="#Multiple"]').click()
+driver.switch_to.frame(driver.find_element(By.XPATH,'//iframe[@src="MultipleFrames.html"]'))
+driver.switch_to.frame(driver.find_element(By.XPATH,'/html/body/section/div/div/iframe'))
+driver.find_element(By.XPATH,'/html/body/section/div/div/div/input').send_keys("khade")
+# driver.switch_to.parent_frame()
+driver.switch_to.default_content()
+
